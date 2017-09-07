@@ -8,7 +8,6 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import urllib3
 
 from io import StringIO
 from lib.config import PLATFORM, get_target_arch,  get_env_var, s3_config, \
@@ -17,7 +16,7 @@ from lib.util import electron_gyp, execute, get_electron_version, \
                      parse_version, scoped_cwd, s3put
 from lib.github import GitHub
 
-urllib3.disable_warnings()
+
 
 ELECTRON_REPO = 'electron/electron'
 ELECTRON_VERSION = get_electron_version()
@@ -34,8 +33,13 @@ SYMBOLS_NAME = get_zip_name(PROJECT_NAME, ELECTRON_VERSION, 'symbols')
 DSYM_NAME = get_zip_name(PROJECT_NAME, ELECTRON_VERSION, 'dsym')
 PDB_NAME = get_zip_name(PROJECT_NAME, ELECTRON_VERSION, 'pdb')
 
+VENDOR_DIR = os.path.join(SOURCE_ROOT, 'vendor')
+sys.path.insert(0, os.path.join(VENDOR_DIR, 'requests', 'build', 'lib',
+    'requests', 'packages'))
+import urllib3
 
 def main():
+  urllib3.disable_warnings()
   args = parse_args()
 
   if not args.publish_release:
