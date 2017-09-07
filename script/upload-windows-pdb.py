@@ -40,6 +40,8 @@ def run_symstore(pdb, dest, product):
 
 
 def upload_symbols(bucket, access_key, secret_key, files):
+  print 'Uploading symbols %s to S3:' % \
+      (files)
   s3put(bucket, access_key, secret_key, SYMBOLS_DIR, 'atom-shell/symbols',
         files)
 

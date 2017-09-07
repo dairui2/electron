@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import urllib3
 
 from io import StringIO
 from lib.config import PLATFORM, get_target_arch,  get_env_var, s3_config, \
@@ -16,6 +17,7 @@ from lib.util import electron_gyp, execute, get_electron_version, \
                      parse_version, scoped_cwd, s3put
 from lib.github import GitHub
 
+urllib3.disable_warnings()
 
 ELECTRON_REPO = 'electron/electron'
 ELECTRON_VERSION = get_electron_version()
@@ -233,6 +235,8 @@ def upload_electron(github, release, file_path):
 
 
 def upload_io_to_github(github, release, name, io, content_type):
+  print 'Uploading %s to Github:' % \
+      (name)
   params = {'name': name}
   headers = {'Content-Type': content_type}
   github.repos(ELECTRON_REPO).releases(release['id']).assets.post(
