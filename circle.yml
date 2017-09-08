@@ -3,6 +3,7 @@ machine:
     version: 9.0
 checkout:
   post:
+    - echo "Sys info"
     - sysctl -n hw.ncpu
     - sysctl -n hw.memsize
     - df -h
