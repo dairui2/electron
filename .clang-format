@@ -1,4 +1,4 @@
-# Defines the Chromium style for automatic reformatting.
+# Defines the Chromium style for automatic reformatting.#123456
 # http://clang.llvm.org/docs/ClangFormatStyleOptions.html
 BasedOnStyle: Chromium
 # This defaults to 'Auto'. Explicitly set it for a while, so that
